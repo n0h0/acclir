@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+require "minitest/autorun"
+require "stringio"
+
+# <%= config[:task].id %>
+class MainTest < Minitest::Test
+  <% config[:task].samples.each.with_index(1) do |sample, index| %>
+    def test_sample<%= index %>
+      $stdin = StringIO.new(<<-STDIN)
+<%= sample.input.chomp %>
+      STDIN
+
+      assert_output(<<~STDOUT) { load "<%= config[:file_path] %>" }
+<%= sample.output.chomp %>
+      STDOUT
+    end
+  <% end %>
+end
