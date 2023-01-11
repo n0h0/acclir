@@ -9,12 +9,17 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
+Gemfile.local
+Gemfile.local.lock
 
 # rspec failure tracking
 .rspec_status
 
 # Used by dotenv library to load environment variables.
 # .env
+
+# direnv
+.envrc
 
 # Ignore Byebug command history file.
 .byebug_history
