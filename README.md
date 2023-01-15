@@ -6,35 +6,47 @@ AtCoder CLI developed in Ruby.
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add acclir
+```
+$ bundle add acclir
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install acclir
+```
+$ gem install acclir
+```
 
 ## Usage
 
-```console
-> acclir help
+```
+$ acclir help
 Acclir commands:
   acclir help [COMMAND]  # Describe available commands or one specific command
+  acclir login           # Login AtCoder
   acclir new CONTEST_ID  # Generate files for the contest
 ```
 
 ## Examples
 
+First, login.
+
+```
+$ acclir login
+```
+
 Prepare for AtCoder Beginner Contest 284.
 
-```console
-acclir new abc284
+```
+$ acclir new abc284
 ```
 
 `abc284` is the ID assigned to the contest URL.  
 https://atcoder.jp/contests/abc284
 
 Once the problem is solved, the test can be run.
-```console
-ruby abc284/abc284_a/main_test.rb
+
+```
+$ ruby abc284/abc284_a/main_test.rb
 ```
 
 ## Development

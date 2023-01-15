@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require "open-uri"
-require "nokogiri"
-
 module Acclir
   module AtCoder
     # AtCoder problem
     class Task
       SAMPLE_INPUT_TITLE = "Sample Input"
       SAMPLE_OUTPUT_TITLE = "Sample Output"
+
+      PATH_REGEX_PROC = ->(contest_id) { %r{^/contests/#{contest_id}/tasks/(?<task>\w+)$} }
+      PATH_PROC = ->(contest_id, id) { "/contests/#{contest_id}/tasks/#{id}" }
 
       attr_reader :contest_id, :id
 
@@ -23,12 +23,10 @@ module Acclir
 
       private
 
-      def url
-        @url ||= ATCODER_TASK_URL_PROC.call(contest_id, id)
-      end
-
       def document
-        @document ||= Nokogiri::HTML(URI.parse(url).open)
+        @document ||= Nokogiri::HTML(
+          Connection.get(PATH_PROC.call(contest_id, id)).body
+        )
       end
 
       def extract_samples
