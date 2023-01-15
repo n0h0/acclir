@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "open-uri"
-
 module Acclir
   module AtCoder
     # AtCoder contest
     class Contest
+      TASKS_PATH_PROC = ->(id) { "/contests/#{id}/tasks" }
+
       attr_reader :id
 
       def initialize(id)
@@ -18,12 +18,10 @@ module Acclir
 
       private
 
-      def url
-        @url ||= ATCODER_TASKS_URL_PROC.call(id)
-      end
-
       def document
-        @document ||= Nokogiri::HTML(URI.parse(url).open)
+        @document ||= Nokogiri::HTML(
+          Connection.get(TASKS_PATH_PROC.call(id)).body
+        )
       end
 
       def extract_task_ids
@@ -31,7 +29,7 @@ module Acclir
           element.attribute("href").content
         end
 
-        hrefs.uniq.map { |href| href.match(ATCODER_TASK_PATH_REGEX_PROC.call(id))&.[](:task) }.compact
+        hrefs.uniq.map { |href| href.match(Task::PATH_REGEX_PROC.call(id))&.[](:task) }.compact
       end
     end
   end
