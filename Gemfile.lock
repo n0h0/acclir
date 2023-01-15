@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    acclir (0.1.0)
+    acclir (0.2.0)
       faraday (~> 2.7.2)
       faraday-cookie_jar (~> 0.0.7)
       minitest
